@@ -1,19 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Game/Utils/Assert.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Game/Game2DR_Hardcoded.cs">
     <Files>
-      <File FileName="Assets/Game/Representation/2D/Playable/PlayableView2DR.cs" Line="289" Column="30" />
-      <File FileName="Assets/Game/Core/Procedure/BaseAPI/PLMSeeker2D_Retangular.cs" Line="1" Column="1" />
-      <File FileName="Assets/Game/Core/Procedure/Functional/PlayableEnv2DR.cs" Line="1" Column="1" />
-      <File FileName="Assets/Game/Game2DR_Hardcoded.cs" Line="1" Column="1" />
-      <File FileName="Assets/Game/Representation/2D/Playable/ViewLayout2DR.cs" Line="1" Column="1" />
-      <File FileName="Assets/Game/Core/Slot/SlotTrait.cs" Line="7" Column="3" />
-      <File FileName="Assets/Game/Core/Procedure/BaseAPI/LMSeeker2D_Retangular.cs" Line="1" Column="1" />
-      <File FileName="Assets/Game/Utils/Assert.cs" Line="16" Column="2" />
+      <File FileName="Assets/Game/Representation/2D/Playable/PlayableView2DR.cs" Line="11" Column="31" />
+      <File FileName="Assets/Game/Game2DR_Hardcoded.cs" Line="161" Column="1" />
+      <File FileName="Assets/Game/Core/Procedure/Functional/PlayableEnvBuilder.cs" Line="41" Column="36" />
+      <File FileName="Assets/Game/Core/Procedure/Functional/PlayableEnv2DR.cs" Line="225" Column="1" />
+      <File FileName="Assets/Game/Utils/Randomlizer.cs" Line="14" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/Argul/Abyss/Abyss/Assets/Game/Utils/Assert.cs" line="9" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="Assets/Game/Utils/AStar.cs" line="42" offsetX="572" offsetY="1025" expression="cur" liveUpdate="False" />

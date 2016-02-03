@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class Game2DR_Hardcoded : MonoBehaviour 
@@ -10,6 +11,7 @@ public class Game2DR_Hardcoded : MonoBehaviour
 	public TapRecognizer tap;
 	void Start()
 	{
+		rand.Seed(0);
 		view.cellProvider = (sa, size)=>{
 			var ret = GameObject.Instantiate(prefab);
 			ret.Init(sa);
@@ -29,10 +31,21 @@ public class Game2DR_Hardcoded : MonoBehaviour
 		tap.OnGesture -= OnTap;
 	}
 
+	private event Action ticker;
+	void Update()
+	{
+		IsAutoPlay = IsAutoPlayForEditor;
+		if (null != ticker)
+		{
+			ticker.Invoke();
+		}
+	}
+
 	private bool isPlaying = false;
 	private Pos2D selection;
 	void OnTap(TapGesture gesture)
 	{
+		if (IsAutoPlay) return;
 		if (isPlaying) return;
 		var worldPos = Camera.main.ScreenToWorldPoint(gesture.Position);
 		worldPos.z = 0;
@@ -86,6 +99,7 @@ public class Game2DR_Hardcoded : MonoBehaviour
 		RefillMap,
 		LogicSlots,
 	}
+
 	public GizmoContent gizmoContent = GizmoContent.NONE;
 	void OnDrawGizmos()
 	{
@@ -126,5 +140,32 @@ public class Game2DR_Hardcoded : MonoBehaviour
 				Gizmos.DrawCube(layout.Logic2View(new Pos2D(x, y)), new Vector3(0.5f, 0.5f, 0.5f));
 			});
 		}
+	}
+
+	Randomizer rand = new Randomizer();
+	private bool autoPlay = false;
+
+	public bool IsAutoPlay {
+		get { return autoPlay; }
+		set {
+			if (autoPlay == value) return;
+			autoPlay = value;
+			if (autoPlay)
+			{
+				ticker += AutoPlayTicker;
+			}
+			else
+			{
+				ticker -= AutoPlayTicker;
+			}	
+		}
+	}
+	public bool IsAutoPlayForEditor = false;
+
+	private void AutoPlayTicker()
+	{
+		if (isPlaying) return;
+		var plm = env.PlmRecords[rand.NextInt(0, env.PlmRecords.Count)];
+		PlayInput(new Pos2D(plm.x1, plm.y1), new Pos2D(plm.x2, plm.y2));
 	}
 }
