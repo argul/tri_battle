@@ -4,8 +4,10 @@ using System.Collections.Generic;
 public abstract class SlotConfig
 {
 	public int randomSeed = 0;
-	public abstract SlotTrait[] Traits { get; }
+	public abstract List<SlotTrait> Traits { get; }
 	public abstract Dictionary<string, SlotSpecialty> Specials { get; }
+
+	public abstract void Init(List<string> traitDumps, List<string> specialDumps);
 }
 
 public class SlotConfig_Hardcoded : SlotConfig
@@ -18,16 +20,16 @@ public class SlotConfig_Hardcoded : SlotConfig
 		var yellow = new SlotTraitColor(255, 255, 0, 255);
 		var syan = new SlotTraitColor(0, 255, 255, 255);
 		var purple = new SlotTraitColor(255, 0, 255, 255);
-		traits[0] = red;
-		traits[1] = green;
-		traits[2] = blue;
-		traits[3] = yellow;
-		traits[4] = syan;
-		traits[5] = purple;
+		traits.Add(red);
+		traits.Add(green);
+		traits.Add(blue);
+		traits.Add(yellow);
+		traits.Add(syan);
+		traits.Add(purple);
 		randomSeed = 0;
 	}
-	private SlotTrait[] traits = new SlotTrait[6];
-	public override SlotTrait[] Traits {
+	private List<SlotTrait> traits = new List<SlotTrait>();
+	public override List<SlotTrait> Traits {
 		get {
 			return traits;
 		}
@@ -36,5 +38,23 @@ public class SlotConfig_Hardcoded : SlotConfig
 		get {
 			throw new NotImplementedException ();
 		}
+	}
+
+	public override void Init (List<string> traitDumps, List<string> specialDumps)
+	{
+		throw new NotImplementedException ();
+	}
+}
+
+public class SlotConfigFromFile : SlotConfig
+{
+	private List<SlotTrait> traits;
+	private Dictionary<string, SlotSpecialty> specials;
+	public override List<SlotTrait> Traits { get { return traits; } }
+	public override Dictionary<string, SlotSpecialty> Specials { get { return specials; } }
+
+	public override void Init (List<string> traitDumps, List<string> specialDumps)
+	{
+		throw new NotImplementedException ();
 	}
 }

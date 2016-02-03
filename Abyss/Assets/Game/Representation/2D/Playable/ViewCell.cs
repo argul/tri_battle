@@ -10,7 +10,8 @@ public class ViewCell : MonoBehaviour
 	}
 
 	private Color origColor;
-	public void Init(SlotAttribute sa)
+	private Vector2 origSize;
+	public void Init(SlotAttribute sa, Vector2 size)
 	{
 		if (sa.category == SlotAttribute.Category.TARGET)
 		{
@@ -26,10 +27,17 @@ public class ViewCell : MonoBehaviour
 		{
 			throw new System.NotImplementedException();
 		}
+		origSize = size;
+		transform.localScale = new Vector3(origSize.x, origSize.y, 1f);
 	}
 
 	public void SetColor(Color c)
 	{
 		render.color = c * origColor;
+	}
+
+	public void SetScale(float scale)
+	{
+		transform.localScale = new Vector3(origSize.x * scale, origSize.y * scale, 1f);
 	}
 }

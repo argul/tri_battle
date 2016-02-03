@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections.Generic;
 
@@ -14,7 +14,7 @@ public class Game2DR_Hardcoded : MonoBehaviour
 		rand.Seed(0);
 		view.cellProvider = (sa, size)=>{
 			var ret = GameObject.Instantiate(prefab);
-			ret.Init(sa);
+			ret.Init(sa, size);
 			return ret;
 		};
 		var builder = new PlayableEnvBuilder();
@@ -107,11 +107,14 @@ public class Game2DR_Hardcoded : MonoBehaviour
 		Gizmos.matrix = transform.localToWorldMatrix;
 		if (gizmoContent == GizmoContent.PLM)
 		{
-			foreach (var plm in env.PlmRecords)
+			if (!isPlaying)
 			{
-				var pos1 = layout.Logic2View(new Pos2D(plm.x1, plm.y1));
-				var pos2 = layout.Logic2View(new Pos2D(plm.x2, plm.y2));
-				Gizmos.DrawLine(pos1, pos2);
+				foreach (var plm in env.PlmRecords)
+				{
+					var pos1 = layout.Logic2View(new Pos2D(plm.x1, plm.y1));
+					var pos2 = layout.Logic2View(new Pos2D(plm.x2, plm.y2));
+					Gizmos.DrawLine(pos1, pos2);
+				}
 			}
 		}
 		else if (gizmoContent == GizmoContent.RefillMap)
@@ -119,7 +122,7 @@ public class Game2DR_Hardcoded : MonoBehaviour
 			object dbg = null;
 			if (env.Foreground.UserData.TryGetValue("RuleRefillDownward-RefillInfoMap", out dbg))
 			{
-				var fillInfos = dbg as RuleRefillDownward.FillInfo[,];
+				var fillInfos = dbg as RuleRefill2DR_Downward.FillInfo[,];
 				for (int y = 0; y < fillInfos.GetLength(0); y++)
 				{
 					for (int x = 0; x < fillInfos.GetLength(1); x++)

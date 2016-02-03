@@ -61,7 +61,7 @@ public class PlayableView2DR : MonoBehaviour
 	{
 		var cell = cells[y, x];
 		if (null == cell) return;
-		cell.transform.localScale = isHighlight ? new Vector3(1.1f, 1.1f, 1.1f) : new Vector3(1f, 1f, 1f);
+		cell.SetScale(isHighlight ? 1.1f : 1f);
 	}
 
 	private IEnumerator PlayCor(OperationInput input, OperationOutput output, Action afterFinished)

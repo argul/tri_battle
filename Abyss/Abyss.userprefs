@@ -1,12 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Game/Game2DR_Hardcoded.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Game/Core/Slot/SlotTraitColor.cs">
     <Files>
-      <File FileName="Assets/Game/Representation/2D/Playable/PlayableView2DR.cs" Line="11" Column="31" />
-      <File FileName="Assets/Game/Game2DR_Hardcoded.cs" Line="161" Column="1" />
-      <File FileName="Assets/Game/Core/Procedure/Functional/PlayableEnvBuilder.cs" Line="41" Column="36" />
-      <File FileName="Assets/Game/Core/Procedure/Functional/PlayableEnv2DR.cs" Line="225" Column="1" />
-      <File FileName="Assets/Game/Utils/Randomlizer.cs" Line="14" Column="2" />
+      <File FileName="Assets/Game/Core/Serialization/Scheme2DR.cs" Line="38" Column="8" />
+      <File FileName="Assets/Game/Core/Rule/MatchBasic/RuleMatchBasic.cs" Line="1" Column="1" />
+      <File FileName="Assets/Game/Core/Rule/Refill/2D/Rectangular/RuleRefill2D_Rectangular.cs" Line="37" Column="50" />
+      <File FileName="Assets/Game/Core/Rule/Refill/RuleRefill.cs" Line="8" Column="40" />
+      <File FileName="Assets/Game/Core/Rule/Score/RuleScore.cs" Line="3" Column="1" />
+      <File FileName="Assets/Game/Core/Container/2D/Rectangular/SlotFactoryConfig.cs" Line="8" Column="2" />
+      <File FileName="Assets/Game/Core/Slot/SlotAttribute.cs" Line="5" Column="29" />
+      <File FileName="Assets/Game/Core/Slot/SlotSpecialty.cs" Line="14" Column="45" />
+      <File FileName="Assets/Game/Core/Slot/SlotTrait.cs" Line="35" Column="15" />
+      <File FileName="Assets/Game/Core/Slot/SlotTraitColor.cs" Line="34" Column="57" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

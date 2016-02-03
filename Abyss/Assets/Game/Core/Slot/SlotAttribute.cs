@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-public class SlotAttribute : ISerializable, IPoolUser
+public class SlotAttribute : IPoolUser
 {
 	public SlotAttribute(Category category)
 	{

@@ -61,21 +61,20 @@
      <Compile Include="Assets\Game\Core\Rule\MatchExtension\RuleMatchExtension.cs" />
      <Compile Include="Assets\Game\Core\Rule\Operation\2D\Rectangular\RuleOperation2D_Rectangular.cs" />
      <Compile Include="Assets\Game\Core\Rule\Operation\RuleOperation.cs" />
+     <Compile Include="Assets\Game\Core\Rule\Refill\2D\Rectangular\RuleRefill2DR_Downward.cs" />
      <Compile Include="Assets\Game\Core\Rule\Refill\2D\Rectangular\RuleRefill2D_Rectangular.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Refill\2D\Rectangular\RuleRefillDownward.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Refill\2D\Rectangular\RuleRefillLeftward.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Refill\2D\Rectangular\RuleRefillRightward.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Refill\2D\Rectangular\RuleRefillUpward.cs" />
      <Compile Include="Assets\Game\Core\Rule\Refill\RuleRefill.cs" />
      <Compile Include="Assets\Game\Core\Rule\Rule.cs" />
      <Compile Include="Assets\Game\Core\Rule\Score\2D\Rectangular\RuleScore2D_Rectangular.cs" />
      <Compile Include="Assets\Game\Core\Rule\Score\RuleScore.cs" />
+     <Compile Include="Assets\Game\Core\Serialization\Scheme2DR.cs" />
      <Compile Include="Assets\Game\Core\Slot\2D\Rectangular\SlotAdjacencyInfo2D_Rectangular.cs" />
      <Compile Include="Assets\Game\Core\Slot\SlotAdjacencyInfo.cs" />
      <Compile Include="Assets\Game\Core\Slot\SlotAttribute.cs" />
      <Compile Include="Assets\Game\Core\Slot\SlotSpecialty.cs" />
      <Compile Include="Assets\Game\Core\Slot\SlotTrait.cs" />
      <Compile Include="Assets\Game\Core\Slot\SlotTraitColor.cs" />
+     <Compile Include="Assets\Game\Editor2DR.cs" />
      <Compile Include="Assets\Game\Game2DR_Hardcoded.cs" />
      <Compile Include="Assets\Game\Interfaces\IPoolUser.cs" />
      <Compile Include="Assets\Game\Interfaces\ISerializable.cs" />
@@ -85,6 +84,7 @@
      <Compile Include="Assets\Game\Utils\AStar.cs" />
      <Compile Include="Assets\Game\Utils\Assert.cs" />
      <Compile Include="Assets\Game\Utils\FSM\FSM.cs" />
+     <Compile Include="Assets\Game\Utils\JsonHelper.cs" />
      <Compile Include="Assets\Game\Utils\NativeExtension.cs" />
      <Compile Include="Assets\Game\Utils\Pos2D.cs" />
      <Compile Include="Assets\Game\Utils\Randomlizer.cs" />
@@ -92,11 +92,15 @@
      <Compile Include="Assets\Game\Utils\SimpleMemoryPool.cs" />
      <Compile Include="Assets\Game\Utils\Tuple.cs" />
      <None Include="Assets\Plugins\FingerGestures\Readme.txt" />
+     <None Include="Assets\Plugins\JsonDotNet\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="SampleClassLibrary">
+ <HintPath>/Users/Argul/Abyss/Abyss/Assets/Plugins/JsonDotNet/Examples/Tests/TestModels/SampleClassLibrary.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

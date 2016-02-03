@@ -48,6 +48,22 @@ public class RuleMatchBasic2D_Rectangular : RuleMatchBasic
 		scatters = tmpScatter.ToArray();
 		compiled = true;
 	}
+
+	public override string SerializeUID { get { return RECTANGULAR_2D; } }
+	public override string Serialize ()
+	{
+		var tuple = new Tuple<int, int, bool[,]>(maskWidth, maskHeight, mask);
+		return JsonHelper.Serialize(tuple);
+	}
+
+	public override void Deserialize (string str)
+	{
+		var tuple = JsonHelper.Deserialize<Tuple<int, int, bool[,]>>(str);
+		maskWidth = tuple.item1;
+		maskHeight = tuple.item2;
+		mask = tuple.item3;
+		Compile();
+	}
 }
 
 public class RuleMatchBasicHorizontal : RuleMatchBasic2D_Rectangular

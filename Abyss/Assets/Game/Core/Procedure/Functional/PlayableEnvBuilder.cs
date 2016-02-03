@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class PlayableEnvBuilder
@@ -28,7 +28,7 @@ public class PlayableEnvBuilder
 		cfg.minimalPlayablePLMCount = 3;
 		env.Cfg = cfg;
 
-		env.RefillRule = new RuleRefillDownward();
+		env.RefillRule = new RuleRefill2DR_Downward();
 
 		env.OperationRules = new RuleOperation2D_Rectangular[2]
 		{

@@ -50,7 +50,7 @@ public class SlotFactory2D_Rectangular
 	protected SlotAttribute Producer_TARGET()
 	{
 		var slot = new SlotAttribute(SlotAttribute.Category.TARGET);
-		slot.trait = config.Traits[rand.NextInt(0, config.Traits.Length)];
+		slot.trait = config.Traits[rand.NextInt(0, config.Traits.Count)];
 		slot.adjacencies = retangularAdjacencies;
 		return slot;
 	}

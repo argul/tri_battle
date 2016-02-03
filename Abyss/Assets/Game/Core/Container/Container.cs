@@ -1,5 +1,5 @@
 using System;
 
-public class Container : ISerializable
+public class Container
 {
 }

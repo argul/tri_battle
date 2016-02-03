@@ -32,4 +32,7 @@ public class RuleRefillOnSpot : RuleRefill2D_Rectangular
 	{
 		throw new NotImplementedException();
 	}
+	public override string SerializeUID { get { return ON_SPOT; } }
+	public override string Serialize () { return ""; }
+	public override void Deserialize (string str) {}
 }
