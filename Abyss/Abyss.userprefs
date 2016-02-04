@@ -1,25 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Game/Core/Slot/SlotTraitColor.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Game/UI/MainUI.cs">
     <Files>
-      <File FileName="Assets/Game/Core/Serialization/Scheme2DR.cs" Line="38" Column="8" />
-      <File FileName="Assets/Game/Core/Rule/MatchBasic/RuleMatchBasic.cs" Line="1" Column="1" />
-      <File FileName="Assets/Game/Core/Rule/Refill/2D/Rectangular/RuleRefill2D_Rectangular.cs" Line="37" Column="50" />
-      <File FileName="Assets/Game/Core/Rule/Refill/RuleRefill.cs" Line="8" Column="40" />
-      <File FileName="Assets/Game/Core/Rule/Score/RuleScore.cs" Line="3" Column="1" />
-      <File FileName="Assets/Game/Core/Container/2D/Rectangular/SlotFactoryConfig.cs" Line="8" Column="2" />
-      <File FileName="Assets/Game/Core/Slot/SlotAttribute.cs" Line="5" Column="29" />
-      <File FileName="Assets/Game/Core/Slot/SlotSpecialty.cs" Line="14" Column="45" />
-      <File FileName="Assets/Game/Core/Slot/SlotTrait.cs" Line="35" Column="15" />
-      <File FileName="Assets/Game/Core/Slot/SlotTraitColor.cs" Line="34" Column="57" />
+      <File FileName="Assets/Game/PlayMode2DR.cs" Line="35" Column="26" />
+      <File FileName="Assets/Game/Game.cs" Line="60" Column="64" />
+      <File FileName="Assets/Game/Core/Serialization/CanvasConfig.cs" Line="1" Column="1" />
+      <File FileName="Assets/Game/UI/MainUI.cs" Line="5" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/Argul/Abyss/Abyss/Assets/Game/Utils/Assert.cs" line="9" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
-    <Watch file="Assets/Game/Utils/AStar.cs" line="42" offsetX="572" offsetY="1025" expression="cur" liveUpdate="False" />
-  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

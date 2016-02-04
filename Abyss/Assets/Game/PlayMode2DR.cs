@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class Game2DR_Hardcoded : MonoBehaviour 
+public class PlayMode2DR : MonoBehaviour 
 {
 	public ViewCell prefab;
 	private PlayableEnv2DR env;
@@ -17,8 +17,17 @@ public class Game2DR_Hardcoded : MonoBehaviour
 			ret.Init(sa, size);
 			return ret;
 		};
+
 		var builder = new PlayableEnvBuilder();
-		env = builder.BuildHardcodedEnv();
+		if (Game.IsClassicScheme)
+		{
+			env = builder.Build_2DR_Hardcoded();
+		}
+		else
+		{
+			env = builder.Build_2DR(new PlayableScheme(Game.SchemeDumpSelection));
+		}
+
 		env.InitPlayableContainer();
 		layout = new ViewLayout2DR(10, 10, env.Foreground.Width, env.Foreground.Height);
 		view.Init(env.Foreground, layout);
@@ -34,7 +43,6 @@ public class Game2DR_Hardcoded : MonoBehaviour
 	private event Action ticker;
 	void Update()
 	{
-		IsAutoPlay = IsAutoPlayForEditor;
 		if (null != ticker)
 		{
 			ticker.Invoke();
@@ -147,7 +155,6 @@ public class Game2DR_Hardcoded : MonoBehaviour
 
 	Randomizer rand = new Randomizer();
 	private bool autoPlay = false;
-
 	public bool IsAutoPlay {
 		get { return autoPlay; }
 		set {
@@ -163,7 +170,6 @@ public class Game2DR_Hardcoded : MonoBehaviour
 			}	
 		}
 	}
-	public bool IsAutoPlayForEditor = false;
 
 	private void AutoPlayTicker()
 	{

@@ -6,10 +6,10 @@
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
 	<RootNamespace></RootNamespace>
-	<ProjectGuid>{BCC906D7-0735-28E6-4106-D7AE535521E2}</ProjectGuid>
+	<ProjectGuid>{4EBA4D48-9797-3755-757A-AD7F255F72FF}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-CSharp-Editor</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -45,66 +45,53 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Game\Core\Container\2D\Rectangular\Container2D_Rectangular.cs" />
-     <Compile Include="Assets\Game\Core\Container\2D\Rectangular\SlotFactory2D_Rectangular.cs" />
-     <Compile Include="Assets\Game\Core\Container\2D\Rectangular\SlotFactoryConfig.cs" />
-     <Compile Include="Assets\Game\Core\Container\2D\Rectangular\SlotWrapper2D.cs" />
-     <Compile Include="Assets\Game\Core\Container\Container.cs" />
-     <Compile Include="Assets\Game\Core\Procedure\BaseAPI\EliminationCollector2D_Rectangular.cs" />
-     <Compile Include="Assets\Game\Core\Procedure\BaseAPI\LMSeeker2D_Retangular.cs" />
-     <Compile Include="Assets\Game\Core\Procedure\BaseAPI\PLMSeeker2D_Retangular.cs" />
-     <Compile Include="Assets\Game\Core\Procedure\Functional\PlayableEnv2DR.cs" />
-     <Compile Include="Assets\Game\Core\Procedure\Functional\PlayableEnvBuilder.cs" />
-     <Compile Include="Assets\Game\Core\Rule\MatchBasic\2D\Rectangular\RuleMatchBasic2D_Rectangular.cs" />
-     <Compile Include="Assets\Game\Core\Rule\MatchBasic\RuleMatchBasic.cs" />
-     <Compile Include="Assets\Game\Core\Rule\MatchExtension\2D\Rectangular\RuleMatchExtension2D_Rectangular.cs" />
-     <Compile Include="Assets\Game\Core\Rule\MatchExtension\RuleMatchExtension.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Operation\2D\Rectangular\RuleOperation2D_Rectangular.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Operation\RuleOperation.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Refill\2D\Rectangular\RuleRefill2DR_Downward.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Refill\2D\Rectangular\RuleRefill2D_Rectangular.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Refill\RuleRefill.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Rule.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Score\2D\Rectangular\RuleScore2D_Rectangular.cs" />
-     <Compile Include="Assets\Game\Core\Rule\Score\RuleScore.cs" />
-     <Compile Include="Assets\Game\Core\Serialization\CanvasConfig.cs" />
-     <Compile Include="Assets\Game\Core\Serialization\PlayableScheme.cs" />
-     <Compile Include="Assets\Game\Core\Serialization\PlayableSchemeCensor.cs" />
-     <Compile Include="Assets\Game\Core\Slot\2D\Rectangular\SlotAdjacencyInfo2D_Rectangular.cs" />
-     <Compile Include="Assets\Game\Core\Slot\SlotAdjacencyInfo.cs" />
-     <Compile Include="Assets\Game\Core\Slot\SlotAttribute.cs" />
-     <Compile Include="Assets\Game\Core\Slot\SlotSpecialty.cs" />
-     <Compile Include="Assets\Game\Core\Slot\SlotTrait.cs" />
-     <Compile Include="Assets\Game\Core\Slot\SlotTraitColor.cs" />
-     <Compile Include="Assets\Game\Editor2DR.cs" />
-     <Compile Include="Assets\Game\Game.cs" />
-     <Compile Include="Assets\Game\Interfaces\IPoolUser.cs" />
-     <Compile Include="Assets\Game\Interfaces\ISerializable.cs" />
-     <Compile Include="Assets\Game\PlayMode2DR.cs" />
-     <Compile Include="Assets\Game\Representation\2D\Playable\PlayableView2DR.cs" />
-     <Compile Include="Assets\Game\Representation\2D\Playable\ViewCell.cs" />
-     <Compile Include="Assets\Game\Representation\2D\Playable\ViewLayout2DR.cs" />
-     <Compile Include="Assets\Game\UI\MainUI.cs" />
-     <Compile Include="Assets\Game\Utils\AStar.cs" />
-     <Compile Include="Assets\Game\Utils\Assert.cs" />
-     <Compile Include="Assets\Game\Utils\FSM\FSM.cs" />
-     <Compile Include="Assets\Game\Utils\JsonHelper.cs" />
-     <Compile Include="Assets\Game\Utils\NativeExtension.cs" />
-     <Compile Include="Assets\Game\Utils\Pos2D.cs" />
-     <Compile Include="Assets\Game\Utils\Randomlizer.cs" />
-     <Compile Include="Assets\Game\Utils\RecursiveCoroutine.cs" />
-     <Compile Include="Assets\Game\Utils\SimpleMemoryPool.cs" />
-     <Compile Include="Assets\Game\Utils\Tuple.cs" />
+     <Compile Include="Assets\ComboBox\Scripts\Editor\ComboBoxEditor.cs" />
      <None Include="Assets\Plugins\FingerGestures\Readme.txt" />
      <None Include="Assets\Plugins\JsonDotNet\ReadMe.txt" />
+ <Reference Include="UnityEditor.Advertisements">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.Networking">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+ </Reference>
  <Reference Include="SampleClassLibrary">
  <HintPath>/Users/Argul/Abyss/Abyss/Assets/Plugins/JsonDotNet/Examples/Tests/TestModels/SampleClassLibrary.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Android.Extensions">
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions">
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Tizen.Extensions">
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/TizenPlayer/UnityEditor.Tizen.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.SamsungTV.Extensions">
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/STVPlayer/UnityEditor.SamsungTV.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WebGL.Extensions">
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.LinuxStandalone.Extensions">
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.OSXStandalone.Extensions">
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -113,6 +100,10 @@
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{BEF7BE02-FB17-DAFD-96EB-98A93F8B171E}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{BCC906D7-0735-28E6-4106-D7AE535521E2}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
+      <Project>{9BAEA8C3-225B-90AA-E233-3C1A021D45B5}</Project>      <Name>Assembly-CSharp-Editor-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

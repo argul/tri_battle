@@ -1,19 +1,38 @@
 using System;
 using System.Collections.Generic;
 
-public abstract class SlotConfig
+public class SlotConfig
 {
-	public int randomSeed = 0;
-	public abstract List<SlotTrait> Traits { get; }
-	public abstract Dictionary<string, SlotSpecialty> Specials { get; }
+	protected bool constantRndSeed = false;
+	public bool ConstantRndSeed { get { return constantRndSeed; } }
 
-	public abstract void Init(List<string> traitDumps, List<string> specialDumps);
+	protected List<SlotTrait> traits;
+	protected Dictionary<string, SlotSpecialty> specials;
+	public List<SlotTrait> Traits { get { return traits; } }
+	public Dictionary<string, SlotSpecialty> Specials { get { return specials; } }
+	
+	public virtual void Init (List<string> traitDumps, List<string> specialDumps)
+	{
+		traits = traitDumps.SchemeStyleMap<string, SlotTrait>((str)=>{
+			return SlotTrait.StaticDeserialize(str);
+		});
+		var tmp = specialDumps.SchemeStyleMap<string, SlotSpecialty>((str)=>{
+			return SlotSpecialty.StaticDeserialize(str);
+		});
+		specials = new Dictionary<string, SlotSpecialty>();
+		foreach (var s in tmp)
+		{
+			specials.Add(s.Name, s);
+		}
+	}
 }
 
 public class SlotConfig_Hardcoded : SlotConfig
 {
 	public SlotConfig_Hardcoded()
 	{
+		traits = new List<SlotTrait>();
+		specials = new Dictionary<string, SlotSpecialty>();
 		var red = new SlotTraitColor(255, 0, 0, 255);
 		var green = new SlotTraitColor(0, 255, 0, 255);
 		var blue = new SlotTraitColor(0, 0, 255, 255);
@@ -26,32 +45,8 @@ public class SlotConfig_Hardcoded : SlotConfig
 		traits.Add(yellow);
 		traits.Add(syan);
 		traits.Add(purple);
-		randomSeed = 0;
+		constantRndSeed = true;
 	}
-	private List<SlotTrait> traits = new List<SlotTrait>();
-	public override List<SlotTrait> Traits {
-		get {
-			return traits;
-		}
-	}
-	public override Dictionary<string, SlotSpecialty> Specials {
-		get {
-			throw new NotImplementedException ();
-		}
-	}
-
-	public override void Init (List<string> traitDumps, List<string> specialDumps)
-	{
-		throw new NotImplementedException ();
-	}
-}
-
-public class SlotConfigFromFile : SlotConfig
-{
-	private List<SlotTrait> traits;
-	private Dictionary<string, SlotSpecialty> specials;
-	public override List<SlotTrait> Traits { get { return traits; } }
-	public override Dictionary<string, SlotSpecialty> Specials { get { return specials; } }
 
 	public override void Init (List<string> traitDumps, List<string> specialDumps)
 	{

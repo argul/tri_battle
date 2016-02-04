@@ -9,7 +9,10 @@ public class SlotFactory2D_Rectangular
 	public SlotFactory2D_Rectangular(SlotConfig config)
 	{
 		this.config = config;
-		rand.Seed(config.randomSeed);
+		if (config.ConstantRndSeed)
+		{
+			rand.Seed(0);
+		}
 		retangularAdjacencies[0] = new SlotAdjacencyInfo2D_Rectangular(SlotAdjacencyInfo2D_Rectangular.Direction.LEFT);
 		retangularAdjacencies[1] = new SlotAdjacencyInfo2D_Rectangular(SlotAdjacencyInfo2D_Rectangular.Direction.RIGHT);
 		retangularAdjacencies[2] = new SlotAdjacencyInfo2D_Rectangular(SlotAdjacencyInfo2D_Rectangular.Direction.UP);

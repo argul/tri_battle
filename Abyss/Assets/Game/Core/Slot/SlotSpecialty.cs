@@ -12,4 +12,13 @@ public abstract class SlotSpecialty : ISerializable
 
 	public abstract string Serialize();
 	public abstract void Deserialize(string str);
+	public static string StaticSerialize(SlotSpecialty s)
+	{
+		throw new NotImplementedException();
+	}
+
+	public static SlotSpecialty StaticDeserialize(string str)
+	{
+		throw new NotImplementedException();
+	}
 }

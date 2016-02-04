@@ -2,6 +2,8 @@ using System;
 
 public abstract class RuleScore : Rule
 {
+	public abstract void Apply(object param);
+
 	public abstract string SerializeUID { get; }
 	public override string Serialize ()
 	{

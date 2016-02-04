@@ -3,20 +3,14 @@ using System.Collections.Generic;
 
 public class Container2D_Rectangular : Container
 {
-	public Container2D_Rectangular(TemplateInfo template, SlotConfig config)
+	public Container2D_Rectangular(CanvasConfig2DR canvasCfg, SlotConfig slotConfig)
 	{
-		this.template = template;
-		this.factory = new SlotFactory2D_Rectangular(config);
-		this.wrapperRect = new SlotWrapper2D[template.height,template.width];
+		this.canvasCfg = canvasCfg;
+		this.factory = new SlotFactory2D_Rectangular(slotConfig);
+		this.wrapperRect = new SlotWrapper2D[canvasCfg.mapHeight, canvasCfg.mapWidth];
 	}
 	
-	protected TemplateInfo template;
-	public class TemplateInfo
-	{
-		public int width;
-		public int height;
-		public List<Pos2D> insulators = new List<Pos2D>();
-	}
+	protected CanvasConfig2DR canvasCfg;
 
 	protected SlotFactory2D_Rectangular factory;
 
@@ -26,8 +20,8 @@ public class Container2D_Rectangular : Container
 			return wrapperRect;
 		}
 	}
-	public int Width { get { return template.width; } }
-	public int Height { get { return template.height; } }
+	public int Width { get { return canvasCfg.mapWidth; } }
+	public int Height { get { return canvasCfg.mapHeight; } }
 	protected Dictionary<string, object> userData = new Dictionary<string, object>();
 	public Dictionary<string, object> UserData {
 		get {
@@ -37,7 +31,7 @@ public class Container2D_Rectangular : Container
 	
 	public void InitBlocks()
 	{
-		foreach (var t in template.insulators)
+		foreach (var t in canvasCfg.insulators)
 		{
 			wrapperRect[t.y, t.x] = WrapSlot(factory.ProduceInsulator(), t.x, t.y);
 		}
@@ -56,9 +50,9 @@ public class Container2D_Rectangular : Container
 
 	public void RecreateSubjects(bool ignoreExist)
 	{
-		for (var y = 0; y < template.height; y++)
+		for (var y = 0; y < Height; y++)
 		{
-			for (var x = 0; x < template.width; x++)
+			for (var x = 0; x < Width; x++)
 			{
 				var exist = wrapperRect[y, x];
 				if (null == exist)

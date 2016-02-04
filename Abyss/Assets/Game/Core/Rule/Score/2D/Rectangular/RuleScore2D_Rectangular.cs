@@ -15,4 +15,8 @@ public class RuleScore2D_Rectangular : RuleScore
 	{
 		throw new NotImplementedException();
 	}
+	public override void Apply (object param)
+	{
+		throw new NotImplementedException ();
+	}
 }

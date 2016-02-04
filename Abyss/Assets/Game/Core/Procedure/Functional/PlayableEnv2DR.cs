@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 public class PlayableEnv2DR
 {
-	private PlayableEnvConfig cfg;
-	public PlayableEnvConfig Cfg { set { cfg = value; } }
+
+	private int minimalPlayablePLM;
+	public int MinimalPlayablePLM { set { minimalPlayablePLM = value; } }
 
 	private Container2D_Rectangular foreground;
 	public Container2D_Rectangular Foreground {
@@ -26,6 +27,9 @@ public class PlayableEnv2DR
 
 	private RuleOperation2D_Rectangular[] operationRules;
 	public RuleOperation2D_Rectangular[] OperationRules { set { operationRules = value; } }
+
+	private RuleScore2D_Rectangular[] scoreRules;
+	public RuleScore2D_Rectangular[] ScoreRules { set { scoreRules = value; } }
 
 	private List<PLMRecord2D_Retangular> plmRecords;
 	// Debug only
@@ -67,7 +71,7 @@ public class PlayableEnv2DR
 	private List<PLMRecord2D_Retangular> MakeContainerPlayable(Container2D_Rectangular container)
 	{
 		var records = SeekContainerPLM(container);
-		if (records.Count >= cfg.minimalPlayablePLMCount)
+		if (records.Count >= minimalPlayablePLM)
 		{
 			return records;
 		}
@@ -157,8 +161,6 @@ public class PlayableEnv2DR
 		{
 			var elimination = new OperationOutput.Episode(OperationOutput.EpisodeType.ELIMINATION);
 			elimination.elimination = new List<Pos2D>();
-			ret.episodes.Add(elimination);
-
 			var sandbox = CollectContainerEliminate(foreground, lmRecords);
 			foreground.ForeachSlot((x, y, slot)=>{
 				if (sandbox[y, x]){
@@ -166,13 +168,20 @@ public class PlayableEnv2DR
 					foreground.ClearSlot(x, y);
 				}
 			});
+			ret.episodes.Add(elimination);
+
+			foreach (var sc in scoreRules)
+			{
+				sc.Apply(sandbox);
+			}
+
 			ret.episodes.Add(DoRefill());
 
 			lmRecords = SeekContainerLM(foreground);
 			if (0 == lmRecords.Count)
 			{
 				plmRecords = SeekContainerPLM(foreground);
-				if (plmRecords.Count >= cfg.minimalPlayablePLMCount)
+				if (plmRecords.Count >= minimalPlayablePLM)
 				{
 					break;
 				}
@@ -220,11 +229,6 @@ public class PlayableEnv2DR
 		});
 		return ret;
 	}
-}
-
-public class PlayableEnvConfig
-{
-	public int minimalPlayablePLMCount;
 }
 
 public class OperationInput
