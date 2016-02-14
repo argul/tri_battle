@@ -21,5 +21,5 @@ public static class NativeExtension
 			ret[i] = proc.Invoke(raw[i]);
 		}
 		return ret;
-	}
+	}	
 }

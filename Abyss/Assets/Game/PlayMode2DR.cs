@@ -25,7 +25,7 @@ public class PlayMode2DR : MonoBehaviour
 		}
 		else
 		{
-			env = builder.Build_2DR(new PlayableScheme(Game.SchemeDumpSelection));
+			env = builder.Build_2DR(new PlayableScheme(Game.Dumps[Game.Selection]));
 		}
 
 		env.InitPlayableContainer();

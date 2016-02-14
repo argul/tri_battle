@@ -32,5 +32,5 @@ public class ViewLayout2DR
 	{
 		return new Pos2D(Mathf.FloorToInt((pos.x - startX) / cellWidth),
 		                 Mathf.FloorToInt((pos.y - startY) / cellHeight));
-	}	
+	}
 }

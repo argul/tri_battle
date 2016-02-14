@@ -25,7 +25,7 @@ public class PlayableScheme : ISerializable
 	public List<RuleScore> scoreRules;
 	public RuleRefill refillRule;
 
-	private DumpWrapper Dump()
+	public DumpWrapper Dump()
 	{
 		var ret = new DumpWrapper();
 		ret.name = Name;

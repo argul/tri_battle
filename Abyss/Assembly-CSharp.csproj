@@ -45,6 +45,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Game\Boot.cs" />
      <Compile Include="Assets\Game\Core\Container\2D\Rectangular\Container2D_Rectangular.cs" />
      <Compile Include="Assets\Game\Core\Container\2D\Rectangular\SlotFactory2D_Rectangular.cs" />
      <Compile Include="Assets\Game\Core\Container\2D\Rectangular\SlotFactoryConfig.cs" />
@@ -76,15 +77,22 @@
      <Compile Include="Assets\Game\Core\Slot\SlotSpecialty.cs" />
      <Compile Include="Assets\Game\Core\Slot\SlotTrait.cs" />
      <Compile Include="Assets\Game\Core\Slot\SlotTraitColor.cs" />
-     <Compile Include="Assets\Game\Editor2DR.cs" />
+     <Compile Include="Assets\Game\EditCanvas2DR.cs" />
+     <Compile Include="Assets\Game\EditMatchRule2DR.cs" />
+     <Compile Include="Assets\Game\EditMode2DR.cs" />
+     <Compile Include="Assets\Game\EditOperationRule2DR.cs" />
+     <Compile Include="Assets\Game\EditTraits2DR.cs" />
      <Compile Include="Assets\Game\Game.cs" />
      <Compile Include="Assets\Game\Interfaces\IPoolUser.cs" />
      <Compile Include="Assets\Game\Interfaces\ISerializable.cs" />
      <Compile Include="Assets\Game\PlayMode2DR.cs" />
+     <Compile Include="Assets\Game\Representation\2D\Editable\Line.cs" />
      <Compile Include="Assets\Game\Representation\2D\Playable\PlayableView2DR.cs" />
      <Compile Include="Assets\Game\Representation\2D\Playable\ViewCell.cs" />
      <Compile Include="Assets\Game\Representation\2D\Playable\ViewLayout2DR.cs" />
+     <Compile Include="Assets\Game\UI\EditModeUI.cs" />
      <Compile Include="Assets\Game\UI\MainUI.cs" />
+     <Compile Include="Assets\Game\UI\PlayModeUI.cs" />
      <Compile Include="Assets\Game\Utils\AStar.cs" />
      <Compile Include="Assets\Game\Utils\Assert.cs" />
      <Compile Include="Assets\Game\Utils\FSM\FSM.cs" />
@@ -95,6 +103,7 @@
      <Compile Include="Assets\Game\Utils\RecursiveCoroutine.cs" />
      <Compile Include="Assets\Game\Utils\SimpleMemoryPool.cs" />
      <Compile Include="Assets\Game\Utils\Tuple.cs" />
+     <Compile Include="Assets\Game\Utils\UnityExtension.cs" />
      <None Include="Assets\Plugins\FingerGestures\Readme.txt" />
      <None Include="Assets\Plugins\JsonDotNet\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">
