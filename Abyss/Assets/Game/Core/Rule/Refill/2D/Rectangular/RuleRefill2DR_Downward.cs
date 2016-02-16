@@ -106,11 +106,6 @@ public class RuleRefill2DR_Downward : RuleRefill2D_Rectangular
 				return list;
 			};
 
-			if (2 == x && 0 == y)
-			{
-				ctx.isDebug = true;
-			}
-
 			if (AStar.Evaluate(ctx))
 			{
 				var result = ctx.path;
