@@ -1,15 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Game/Utils/AStar.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Game/Core/Procedure/Functional/PlayableEnv2DR.cs">
     <Files>
-      <File FileName="Assets/Game/PlayMode2DR.cs" Line="37" Column="3" />
+      <File FileName="Assets/Game/PlayMode2DR.cs" Line="93" Column="4" />
       <File FileName="Assets/Game/Representation/2D/Playable/PlayableView2DR.cs" Line="1" Column="1" />
-      <File FileName="Assets/Game/Utils/AStar.cs" Line="92" Column="70" />
-      <File FileName="Assets/Game/Core/Rule/Refill/2D/Rectangular/RuleRefill2DR_Downward.cs" Line="98" Column="17" />
+      <File FileName="Assets/Game/Utils/AStar.cs" Line="1" Column="1" />
+      <File FileName="Assets/Game/Core/Rule/Refill/2D/Rectangular/RuleRefill2DR_Downward.cs" Line="132" Column="5" />
+      <File FileName="Assets/Game/Core/Procedure/Functional/PlayableEnv2DR.cs" Line="140" Column="81" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/Argul/Abyss/Abyss/Assets/Game/PlayMode2DR.cs" line="85" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

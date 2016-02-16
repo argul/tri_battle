@@ -137,7 +137,7 @@ public class PlayableEnv2DR
 		foreach (var plm in plmRecords)
 		{
 			if ((plm.x1 == op.x1 && plm.y1 == op.y1 && plm.x2 == op.x2 && plm.y2 == op.y2) ||
-			    (plm.x1 == op.x2 && plm.y1 == op.y2 && plm.x1 == op.x2 && plm.y1 == op.y2))
+			    (plm.x1 == op.x2 && plm.y1 == op.y2 && plm.x2 == op.x1 && plm.y2 == op.y1))
 			{
 				ret.IsRejected = false;
 				break;
