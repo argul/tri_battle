@@ -33,6 +33,7 @@ public class PlayMode2DR : MonoBehaviour
 		view.Init(env.Foreground, layout);
 
 		tap.OnGesture += OnTap;
+
 	}
 
 	void OnDestroy()
@@ -107,8 +108,10 @@ public class PlayMode2DR : MonoBehaviour
 		RefillMap,
 		LogicSlots,
 	}
-
+	
 	public GizmoContent gizmoContent = GizmoContent.NONE;
+	public int RefillMapStartX = -1;
+	public int RefillMapStartY = -1;
 	void OnDrawGizmos()
 	{
 		if (null == env || null == env.PlmRecords) return;
@@ -127,18 +130,41 @@ public class PlayMode2DR : MonoBehaviour
 		}
 		else if (gizmoContent == GizmoContent.RefillMap)
 		{
-			object dbg = null;
-			if (env.Foreground.UserData.TryGetValue("RuleRefillDownward-RefillInfoMap", out dbg))
+			if (null != GlobalDebug.refillInfoMap)
 			{
-				var fillInfos = dbg as RuleRefill2DR_Downward.FillInfo[,];
-				for (int y = 0; y < fillInfos.GetLength(0); y++)
+				var width = GlobalDebug.refillInfoMap.GetLength(1);
+				var height = GlobalDebug.refillInfoMap.GetLength(0);
+				if (RefillMapStartX >= 0 
+				    && RefillMapStartX < width
+				    && RefillMapStartY >= 0
+				    && RefillMapStartY < height)
 				{
-					for (int x = 0; x < fillInfos.GetLength(1); x++)
+					var curX = RefillMapStartX;
+					var curY = RefillMapStartY;
+					while (curX >= 0 && curX < width && curY >= 0 && curY < height
+					       && null != GlobalDebug.refillInfoMap[curY, curX]
+					       && null != GlobalDebug.refillInfoMap[curY, curX].ancestorPos)
 					{
-						if (null != fillInfos[y, x].ancestorPos)
+						var ancestorPos = GlobalDebug.refillInfoMap[curY, curX].ancestorPos;
+						Gizmos.DrawLine(layout.Logic2View(new Pos2D(curX, curY)),
+						                layout.Logic2View(new Pos2D(ancestorPos.x, ancestorPos.y)));
+						curX = ancestorPos.x;
+						curY = ancestorPos.y;
+					}
+				}
+				else
+				{
+					for (int y = 0; y < GlobalDebug.refillInfoMap.GetLength(0); y++)
+					{
+						for (int x = 0; x < GlobalDebug.refillInfoMap.GetLength(1); x++)
 						{
+							if (null == GlobalDebug.refillInfoMap[y, x]
+							    || null == GlobalDebug.refillInfoMap[y, x].ancestorPos)
+							{
+								continue;
+							}
 							Gizmos.DrawLine(layout.Logic2View(new Pos2D(x, y)),
-							                layout.Logic2View(new Pos2D(fillInfos[y, x].ancestorPos.x, fillInfos[y, x].ancestorPos.y)));
+							                layout.Logic2View(new Pos2D(GlobalDebug.refillInfoMap[y, x].ancestorPos.x, GlobalDebug.refillInfoMap[y, x].ancestorPos.y)));
 						}
 					}
 				}
@@ -151,6 +177,11 @@ public class PlayMode2DR : MonoBehaviour
 				Gizmos.DrawCube(layout.Logic2View(new Pos2D(x, y)), new Vector3(0.5f, 0.5f, 0.5f));
 			});
 		}
+
+		Gizmos.color = Color.black;
+		env.Foreground.ForeachSlot((x, y, s)=>{
+
+		});
 	}
 
 	Randomizer rand = new Randomizer();

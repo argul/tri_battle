@@ -16,7 +16,7 @@ public class PlayableScheme : ISerializable
 	}
 
 	public string Name { get;set; }
-	public int minimalPlayablePLM;
+	public int minimalPlayablePLM = 2;
 	public CanvasConfig canvasConfig;
 	public List<RuleMatchBasic> matchRules;
 	public SlotConfig slotConfig;
@@ -30,27 +30,27 @@ public class PlayableScheme : ISerializable
 		var ret = new DumpWrapper();
 		ret.name = Name;
 		ret.minimalPLMDump = minimalPlayablePLM;
-		ret.canvasDump = canvasConfig.Serialize();
+		ret.canvasDump = CanvasConfig.StaticSerialize(canvasConfig);
 		ret.matchRuleDumps = matchRules.SchemeStyleMap<RuleMatchBasic, string>((r)=>{
-			return r.Serialize();
+			return RuleMatchBasic.StaticSerialize(r);
 		});
 		ret.operationRuleDumps = operationRules.SchemeStyleMap<RuleOperation, string>((r)=>{
-			return r.Serialize();
+			return RuleOperation.StaticSerialize(r);
 		});
 		ret.extensionRuleDumps = extensionRules.SchemeStyleMap<RuleMatchExtension, string>((r)=>{
-			return r.Serialize();
+			return RuleMatchExtension.StaticSerialize(r);
 		});
 		ret.scoreRuleDumps = scoreRules.SchemeStyleMap<RuleScore, string>((r)=>{
-			return r.Serialize();
+			return RuleScore.StaticSerialize(r);
 		});
-		ret.refillRuleDump = refillRule.Serialize();
+		ret.refillRuleDump = RuleRefill.StaticSerialize(refillRule);
 		ret.traitDumps = slotConfig.Traits.SchemeStyleMap<SlotTrait, string>((t)=>{
-			return t.Serialize();
+			return SlotTrait.StaticSerialize(t);
 		});
 		ret.specialDumps = new List<string>();
 		foreach (var kvp in slotConfig.Specials)
 		{
-			ret.specialDumps.Add(kvp.Value.Serialize());
+			ret.specialDumps.Add(SlotSpecialty.StaticSerialize(kvp.Value));
 		}
 		return ret;
 	}

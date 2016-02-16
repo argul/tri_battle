@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public static class Game
 {
@@ -21,11 +22,13 @@ public static class Game
 	public static void Launch()
 	{
 		dumps.Add(null);
+		dumps.AddRange(SchemeIO.ReadAllSchemes());
 	}
 
 	public static void DeleteSelectedScheme()
 	{
 		Assert.AssertIsTrue(selection > 0);
+		SchemeIO.DeleteSchemeFile(dumps[selection].name);
 		dumps.RemoveAt(selection);
 		selection = selection - 1;
 	}
@@ -50,12 +53,6 @@ public static class Game
 		}
 	}
 
-	public static bool IsSchemeLegal(PlayableScheme scheme, out string reason)
-	{
-		reason = "";
-		return false;
-	}
-
 	public static void CancelEditingScheme()
 	{
 		globalEdit = null;
@@ -66,14 +63,16 @@ public static class Game
 		Assert.AssertNotNull(globalEdit);
 		if (globalEdit.isNewScheme)
 		{
-			SchemeIO.WriteToFile(globalEdit.editingScheme);
-			dumps.Add(globalEdit.editingScheme.Dump());
+			var d = globalEdit.editingScheme.Dump();
+			SchemeIO.WriteToFile(d);
+			dumps.Add(d);
 		}
 		else
 		{
 			SchemeIO.DeleteSchemeFile(dumps[globalEdit.indexInSchemes].name);
-			SchemeIO.WriteToFile(globalEdit.editingScheme);
-			dumps[globalEdit.indexInSchemes] = globalEdit.editingScheme.Dump();
+			var d = globalEdit.editingScheme.Dump();
+			SchemeIO.WriteToFile(d);
+			dumps[globalEdit.indexInSchemes] = d;
 		}
 		globalEdit = null;
 	}
@@ -110,21 +109,44 @@ public class EditingGlobalHoldings
 
 public static class SchemeIO
 {
-	public static void WriteToFile(PlayableScheme scheme)
+	private const string SCHEME_EXTENSION = ".scheme";
+	private static string RootPath { get { return Application.persistentDataPath; } }
+	private static string GetPath(string name)
 	{
+		return Path.Combine(RootPath, name + SCHEME_EXTENSION);
+	}
+
+	public static void WriteToFile(DumpWrapper schemeDump)
+	{
+		var path = GetPath(schemeDump.name);
+		File.WriteAllText(path, JsonHelper.Serialize(schemeDump));
 	}
 
 	public static void DeleteSchemeFile(string name)
 	{
+		var path = GetPath(name);
+		if (File.Exists(path))
+		{
+			File.Delete(path);
+		}
 	}
 
-	public static PlayableScheme ReadFromFile(string name)
+	public static DumpWrapper ReadFromFile(string name)
 	{
-		throw new NotImplementedException();
+		var path = GetPath(name);
+		var str = File.ReadAllText(path);
+		return JsonHelper.Deserialize<DumpWrapper>(str);
 	}
 
-	public static List<PlayableScheme> ReadAllSchemes()
+	public static List<DumpWrapper> ReadAllSchemes()
 	{
-		throw new NotImplementedException();
+		var ret = new List<DumpWrapper>();
+		var di = new DirectoryInfo(RootPath);
+		foreach (var fi in di.GetFiles())
+		{
+			if (fi.Extension != SCHEME_EXTENSION) continue;
+			ret.Add(JsonHelper.Deserialize<DumpWrapper>(File.ReadAllText(fi.FullName)));
+		}
+		return ret;
 	}
 }

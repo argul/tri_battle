@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class AStar
 {
 	public class Context<T>
 	{
+		public bool isDebug = false;
 		public List<T> path;
 		public T start;
 		public Predicate<T> procTermination;
 		public Func<T, List<T>> procAdjacencies;
-		public Func<T, T, int> procWeight;
-		public Func<T, int> procDistanceEstimator;
+		public Func<T, T, float> procWeight;
+		public Func<T, float> procDistanceEstimator;
 		public Func<T, int> procTrait;
 	}
 	public static bool Evaluate<T>(Context<T> ctx)
@@ -39,6 +41,16 @@ public static class AStar
 
 		while (opened.Length > 0)
 		{
+			if (ctx.isDebug)
+			{
+				var str = "";
+				opened.Foreach((n)=>{
+					var s = n.substance as SlotWrapper2D;
+					str += " [" + s.pos.x + "," + s.pos.y + "," + (n.dstStart + n.dstEndEstimated) + "] |";
+				});
+				Debug.LogWarning(str);
+			}
+
 			matches.Clear();
 			var cur = opened.ExtractMin();
 			if (ctx.procTermination.Invoke(cur.substance))
@@ -56,6 +68,7 @@ public static class AStar
 			var adjs = ctx.procAdjacencies.Invoke(cur.substance);
 			closed.Add(ctx.procTrait.Invoke(cur.substance));
 			map.Remove(ctx.procTrait.Invoke(cur.substance));
+
 			foreach (var adj in adjs)
 			{
 				if (closed.Contains(ctx.procTrait.Invoke(adj)))
@@ -71,6 +84,7 @@ public static class AStar
 					{
 						exist.dstStart = cur.dstStart + dstIncrease;
 						exist.backwardRef = cur;
+						opened.HeapifyAll();
 					}
 				}
 				else
@@ -88,15 +102,15 @@ public static class AStar
 
 	private class Node<T>
 	{
-		public Node(T substance, int dstStart, int dstEndEstimated)
+		public Node(T substance, float dstStart, float dstEndEstimated)
 		{
 			this.substance = substance;
 			this.dstStart = dstStart;
 			this.dstEndEstimated = dstEndEstimated;
 		}
 		public T substance;
-		public int dstStart;
-		public int dstEndEstimated;
+		public float dstStart;
+		public float dstEndEstimated;
 		public Node<T> backwardRef;
 	}
 
@@ -112,7 +126,21 @@ public static class AStar
 			public Node<T> node;
 			public int index;
 
-			public int Weight { get { return node.dstStart + node.dstEndEstimated; } }
+			public bool ComparePriority(Wrapper other)
+			{
+				if (node.dstStart + node.dstEndEstimated < other.node.dstStart + other.node.dstEndEstimated)
+				{
+					return true;
+				}
+				else if (node.dstStart + node.dstEndEstimated > other.node.dstStart + other.node.dstEndEstimated)
+				{
+					return false;
+				}
+				else
+				{
+					return node.dstEndEstimated < other.node.dstEndEstimated;
+				}
+			}
 			public bool IsRoot { get { return 0 == index; } }
 			public int LeftChildIndex { get { return (index + 1) * 2 - 1; } }
 			public int RightChildIndex { get { return (index + 1) * 2; } }
@@ -131,14 +159,58 @@ public static class AStar
 			}
 			buffer[length - 1] = null;
 			length--;
+			HeapifyDownward(buffer[0]);
+
 			return ret;
+		}
+
+		public void HeapifyDownward(Wrapper w)
+		{
+			if (null == w) return;
+			var left = LeftChild(w);
+			var right = RightChild(w);
+			if (null == left && null == right)
+			{
+				return;
+			}
+			else if (null != left && null == right)
+			{
+				if (left.ComparePriority(w))
+				{
+					Swap(w, left);
+				}
+			}
+			else
+			{
+				var isLeft = left.ComparePriority(right);
+				if (isLeft && left.ComparePriority(w))
+				{
+					Swap(w, left);
+					HeapifyDownward(w);
+					return;
+				}
+				if (!isLeft && right.ComparePriority(w))
+				{
+					Swap(w, right);
+					HeapifyDownward(w);
+				}
+			}
+		}
+
+		public void Foreach(Action<Node<T>> proc)
+		{
+			foreach (var n in buffer)
+			{
+				if (null == n) return;
+				proc.Invoke(n.node);
+			}
 		}
 
 		public void AddNode(Node<T> node)
 		{
 			var w = new Wrapper(node, length);
 			buffer[length] = w;
-			Heapify(buffer[length]);
+			HeapifyUpward(buffer[length]);
 			length++;
 
 			if (length >= buffer.Length)
@@ -147,11 +219,11 @@ public static class AStar
 			}
 		}
 
-		public void Heapify()
+		public void HeapifyAll()
 		{
 			for (int i = length - 1; i > 0; i--)
 			{
-				Heapify(buffer[i]);
+				HeapifyUpward(buffer[i]);
 			}
 		}
 
@@ -170,14 +242,14 @@ public static class AStar
 			if (w.IsRoot) return null;
 			return buffer[w.ParentIndex];
 		}
-		private void Heapify(Wrapper w)
+		private void HeapifyUpward(Wrapper w)
 		{
 			if (w.IsRoot) return;
 			var parent = Parent(w);
-			if (w.Weight < parent.Weight)
+			if (w.ComparePriority(parent))
 			{
 				Swap(w, parent);
-				Heapify(w);
+				HeapifyUpward(w);
 			}
 		}
 		private void Swap(Wrapper w1, Wrapper w2)

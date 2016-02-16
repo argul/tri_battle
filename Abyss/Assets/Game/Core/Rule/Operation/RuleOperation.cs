@@ -18,6 +18,15 @@ public abstract class RuleOperation : Rule
 	}
 	public static RuleOperation StaticDeserialize(string str)
 	{
-		throw new NotSupportedException();
+		var tuple = JsonHelper.Deserialize<Tuple<string, string>>(str);
+		switch (tuple.item1)
+		{
+		case RECTANGULAR_2D:
+			var ret = new RuleOperation2D_Rectangular();
+			ret.Deserialize(tuple.item2);
+			return ret;
+		default:
+			throw new NotSupportedException();
+		}
 	}
 }

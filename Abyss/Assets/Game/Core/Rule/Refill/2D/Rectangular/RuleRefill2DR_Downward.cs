@@ -25,6 +25,7 @@ public class RuleRefill2DR_Downward : RuleRefill2D_Rectangular
 
 			fillInfoMap = GenerateRefillTrendMap(container);
 			container.UserData.Add(key, fillInfoMap);
+			GlobalDebug.refillInfoMap = fillInfoMap;
 
 			foreach (var p in pores)
 			{
@@ -39,28 +40,19 @@ public class RuleRefill2DR_Downward : RuleRefill2D_Rectangular
 		return DoApply(container, fillInfoMap);
 	}
 
+	private static float sqrt2 = (float)Math.Sqrt(2);
 	// <offsetX, offsetY, hinder>
-	private static Tuple<int,int,int>[] surroundingOffsets = new Tuple<int, int, int>[8]
+	private static Tuple<int,int,float>[] surroundingOffsets = new Tuple<int, int, float>[8]
 	{
-		new Tuple<int, int, int>(0, 1, 1),
-		new Tuple<int, int, int>(-1, 1, 2),
-		new Tuple<int, int, int>(1, 1, 2),
-		new Tuple<int, int, int>(-1, 0, 3),
-		new Tuple<int, int, int>(1, 0, 3),
-		new Tuple<int, int, int>(-1, -1, 4),
-		new Tuple<int, int, int>(1, -1, 4),
-		new Tuple<int, int, int>(0, -1, 5)
+		new Tuple<int, int, float>(0, 1, 1f),
+		new Tuple<int, int, float>(-1, 1, sqrt2),
+		new Tuple<int, int, float>(1, 1, sqrt2),
+		new Tuple<int, int, float>(-1, 0, 1f),
+		new Tuple<int, int, float>(1, 0, 1f),
+		new Tuple<int, int, float>(-1, -1, sqrt2),
+		new Tuple<int, int, float>(1, -1, sqrt2),
+		new Tuple<int, int, float>(0, -1, 1f)
 	};
-	public class FillInfo
-	{
-		public FillInfo()
-		{
-			ancestorPos = null;
-		}
-		public bool IsOnSpot { get { return null == ancestorPos; } }
-		public Pos2D ancestorPos;
-		public List<Pos2D> childrenPos;
-	}
 	private FillInfo[,] GenerateRefillTrendMap(Container2D_Rectangular container)
 	{
 		var ret = new FillInfo[container.Height, container.Width];
@@ -68,7 +60,10 @@ public class RuleRefill2DR_Downward : RuleRefill2D_Rectangular
 		Action<int, int, List<SlotWrapper2D>> picker = (x, y, list)=>{
 			if (x < 0 || x >= container.Width) return;
 			if (y < 0 || y >= container.Height) return;
-			if (null != slots[y, x].slotAttribute && slots[y, x].slotAttribute.category == SlotAttribute.Category.INSULATOR) return;
+			if (null != slots[y, x].slotAttribute && slots[y, x].slotAttribute.category == SlotAttribute.Category.INSULATOR)
+			{
+				return;
+			}
 			list.Add(slots[y, x]);
 		};
 		Action<int, int> exitMarker = (x, y)=>{
@@ -101,7 +96,7 @@ public class RuleRefill2DR_Downward : RuleRefill2D_Rectangular
 				return s.pos.y == container.Height - 1;
 			};
 			ctx.procDistanceEstimator = (SlotWrapper2D s)=>{
-				return container.Height - 1 - s.pos.y;
+				return (container.Height - 1 - s.pos.y) * 1.0001f;
 			};
 			ctx.procAdjacencies = (SlotWrapper2D s)=>{
 				var list = new List<SlotWrapper2D>();
@@ -110,6 +105,12 @@ public class RuleRefill2DR_Downward : RuleRefill2D_Rectangular
 				}
 				return list;
 			};
+
+			if (2 == x && 0 == y)
+			{
+				ctx.isDebug = true;
+			}
+
 			if (AStar.Evaluate(ctx))
 			{
 				var result = ctx.path;
@@ -148,7 +149,17 @@ public class RuleRefill2DR_Downward : RuleRefill2D_Rectangular
 				{
 					var sx = x + t.item1;
 					var sy = y + t.item2;
-					if (!container.IsLegalPosition(sx, sy)) continue;
+
+					if (!container.IsLegalPosition(sx, sy))
+					{
+						continue;
+					}
+					var slot = container.GetSlot(sx, sy);
+					if (null != slot && null != slot.slotAttribute && slot.slotAttribute.category == SlotAttribute.Category.INSULATOR)
+					{
+						continue;
+					}
+
 					var touch = ret[sy, sx];
 					if (null != touch.ancestorPos && touch.ancestorPos.x == x && touch.ancestorPos.y == y)
 					{

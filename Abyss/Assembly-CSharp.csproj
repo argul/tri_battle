@@ -78,11 +78,13 @@
      <Compile Include="Assets\Game\Core\Slot\SlotTrait.cs" />
      <Compile Include="Assets\Game\Core\Slot\SlotTraitColor.cs" />
      <Compile Include="Assets\Game\EditCanvas2DR.cs" />
+     <Compile Include="Assets\Game\EditContainer2DR.cs" />
      <Compile Include="Assets\Game\EditMatchRule2DR.cs" />
      <Compile Include="Assets\Game\EditMode2DR.cs" />
      <Compile Include="Assets\Game\EditOperationRule2DR.cs" />
      <Compile Include="Assets\Game\EditTraits2DR.cs" />
      <Compile Include="Assets\Game\Game.cs" />
+     <Compile Include="Assets\Game\GlobalDebug.cs" />
      <Compile Include="Assets\Game\Interfaces\IPoolUser.cs" />
      <Compile Include="Assets\Game\Interfaces\ISerializable.cs" />
      <Compile Include="Assets\Game\PlayMode2DR.cs" />

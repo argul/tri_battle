@@ -84,6 +84,7 @@ public class Container2D_Rectangular : Container
 		if (y < 0 || y >= Height) return false;
 		return true;
 	}
+
 	public SlotWrapper2D GetSlot(int x, int y)
 	{
 		return wrapperRect[y, x];

@@ -52,17 +52,19 @@ public class RuleMatchBasic2D_Rectangular : RuleMatchBasic
 	public override string SerializeUID { get { return RECTANGULAR_2D; } }
 	public override string Serialize ()
 	{
-		var tuple = new Tuple<int, int, bool[,]>(maskWidth, maskHeight, mask);
+		var tuple = new Tuple<int, int, bool[]>();
+		tuple.item1 = maskWidth;
+		tuple.item2 = maskHeight;
+		tuple.item3 = NativeExtension.ConvertArray<bool>(mask);
 		return JsonHelper.Serialize(tuple);
 	}
 
 	public override void Deserialize (string str)
 	{
-		var tuple = JsonHelper.Deserialize<Tuple<int, int, bool[,]>>(str);
+		var tuple = JsonHelper.Deserialize<Tuple<int, int, bool[]>>(str);
 		maskWidth = tuple.item1;
 		maskHeight = tuple.item2;
-		mask = tuple.item3;
-		Compile();
+		mask = NativeExtension.InverseConvertArray<bool>(tuple.item3, maskHeight, maskWidth);
 	}
 }
 

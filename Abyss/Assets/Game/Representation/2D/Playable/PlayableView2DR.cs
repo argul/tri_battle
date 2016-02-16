@@ -9,6 +9,8 @@ public class PlayableView2DR : MonoBehaviour
 	public float eliminationTime = 1f;
 	public float shuffleTime = 4f;
 	public GameObject goCellRoot;
+	public GameObject textRoot;
+	public TextMesh pfbText;
 
 	public Func<SlotAttribute, Vector2, ViewCell> cellProvider;
 
@@ -25,6 +27,22 @@ public class PlayableView2DR : MonoBehaviour
 		container.ForeachSlot((x, y, s)=>{
 			InsertCell(s.slotAttribute, new Pos2D(x, y));
 		});
+		DrawCoordinates(container);
+	}
+
+	void DrawCoordinates(Container2D_Rectangular container)
+	{
+		for (int y = 0; y < container.Height; y++)
+		{
+			for (int x = 0; x < container.Width; x++)
+			{
+				var tm = GameObject.Instantiate<TextMesh>(pfbText);
+				tm.gameObject.SetActive(true);
+				tm.text = "[" + x + "," + y + "]";
+				var pos = layout.Logic2View(new Pos2D(x, y));
+				tm.transform.SetParent(textRoot.transform, new Vector3(pos.x, pos.y, -1f), Vector3.one);
+			}
+		}
 	}
 
 	private void InsertCell(SlotAttribute sa, Pos2D pos)

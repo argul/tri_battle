@@ -54,7 +54,13 @@ public class PlayableEnvBuilder
 		                                             scheme.slotConfig);
 
 		env.MatchRules = scheme.matchRules.SchemeStyleMap<RuleMatchBasic, RuleMatchBasic2D_Rectangular>((r)=>{
-			return r as RuleMatchBasic2D_Rectangular;
+			var raw = r as RuleMatchBasic2D_Rectangular;
+			var ret = new RuleMatchBasic2D_Rectangular();
+			ret.maskWidth = raw.maskWidth;
+			ret.maskHeight = raw.maskHeight;
+			ret.mask = raw.mask;
+			ret.Compile();
+			return ret;
 		}).ToArray();
 
 		env.ExtensionRules = scheme.extensionRules.SchemeStyleMap<RuleMatchExtension, RuleMatchExtension2D_Rectangular>((r)=>{

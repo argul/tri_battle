@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public abstract class RuleRefill : Rule
 {
@@ -29,5 +30,16 @@ public abstract class RuleRefill : Rule
 		default:
 			throw new NotSupportedException();
 		}
+	}
+
+	public class FillInfo
+	{
+		public FillInfo()
+		{
+			ancestorPos = null;
+		}
+		public bool IsOnSpot { get { return null == ancestorPos; } }
+		public Pos2D ancestorPos;
+		public List<Pos2D> childrenPos;
 	}
 }

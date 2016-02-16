@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using System.Collections.Generic;
 
 public class EditModeUI : MonoBehaviour 
 {
@@ -14,9 +14,15 @@ public class EditModeUI : MonoBehaviour
 	public Dropdown dpdMode;
 	public Button btnPrevMatch;
 	public Button btnNextMatch;
+	public Button btnNewMatch;
+	public Button btnSaveMatch;
+	public Button btnDeleteMatch;
 
 	public Button btnPrevOperation;
 	public Button btnNextOperation;
+	public Button btnNewOperation;
+	public Button btnSaveOperation;
+	public Button btnDeleteOperation;
 
 	public Button btnAddWidth;
 	public Button btnSubWidth;
@@ -29,22 +35,51 @@ public class EditModeUI : MonoBehaviour
 
 	public Text txtHint;
 
+	private List<Button> buttons;
 	void Start () 
 	{
 		OnEditModeChanged(dpdMode.value);
 
 		btnPrevMatch.onClick.AddListener(()=>{
-
+			mode.PrevMatchRule();
+			SyncMatchRuleUI();
 		});
 		btnNextMatch.onClick.AddListener(()=>{
-			
+			mode.NextMatchRule();
+			SyncMatchRuleUI();
 		});
+		btnNewMatch.onClick.AddListener(()=>{
+			mode.NewMatchRule();
+			SyncMatchRuleUI();
+		});
+		btnSaveMatch.onClick.AddListener(()=>{
+			mode.SaveMatchRule();
+		});
+		btnDeleteMatch.onClick.AddListener(()=>{
+			mode.DeleteMatchRule();
+			SyncMatchRuleUI();
+		});
+
 		btnPrevOperation.onClick.AddListener(()=>{
-			
+			mode.PrevOperationRule();
+			SyncOperationRuleUI();
 		});
 		btnNextOperation.onClick.AddListener(()=>{
-			
+			mode.NextOperationRule();
+			SyncOperationRuleUI();
 		});
+		btnNewOperation.onClick.AddListener(()=>{
+			mode.NewOperationRule();
+			SyncOperationRuleUI();
+		});
+		btnSaveOperation.onClick.AddListener(()=>{
+			mode.SaveOperationRule();
+		});
+		btnDeleteOperation.onClick.AddListener(()=>{
+			mode.DeleteOperationRule();
+			SyncOperationRuleUI();
+		});
+
 		btnAddWidth.onClick.AddListener(()=>{
 			mode.ModifyCanvasSize(1, 0);	
 		});
@@ -63,20 +98,21 @@ public class EditModeUI : MonoBehaviour
 		btnRevertCanvas.onClick.AddListener(()=>{
 			mode.RevertCanvas();
 		});
+
+		buttons = new List<Button>()
+		{
+			btnPrevMatch, btnNextMatch, btnNewMatch, btnSaveMatch, btnDeleteMatch,
+			btnPrevOperation, btnNextOperation, btnNewOperation, btnSaveOperation, btnDeleteOperation,
+			btnAddWidth, btnSubWidth, btnAddHeight, btnSubHeight, btnApplyCanvas, btnRevertCanvas
+		};
 	}
 
 	void OnDestroy()
 	{
-		btnPrevMatch.onClick.RemoveAllListeners();
-		btnNextMatch.onClick.RemoveAllListeners();
-		btnPrevOperation.onClick.RemoveAllListeners();
-		btnNextOperation.onClick.RemoveAllListeners();
-		btnAddWidth.onClick.RemoveAllListeners();
-		btnSubWidth.onClick.RemoveAllListeners();
-		btnAddHeight.onClick.RemoveAllListeners();
-		btnSubHeight.onClick.RemoveAllListeners();
-		btnApplyCanvas.onClick.RemoveAllListeners();
-		btnRevertCanvas.onClick.RemoveAllListeners();
+		foreach (var btn in buttons)
+		{
+			if (null != btn) btn.onClick.RemoveAllListeners();
+		}
 	}
 
 	private bool isHintShowing = false;
@@ -106,7 +142,7 @@ public class EditModeUI : MonoBehaviour
 	public void OnDoneClick()
 	{
 		string reason = "";
-		if (Game.IsSchemeLegal(Game.globalEdit.editingScheme, out reason))
+		if (PlayableSchemeCensor.CheckScheme(Game.globalEdit.editingScheme, out reason))
 		{
 			Game.ConfirmEditingScheme();
 			Application.LoadLevel("scn_main");
@@ -122,24 +158,34 @@ public class EditModeUI : MonoBehaviour
 		switch (idx)
 		{
 		case 0:
+		{
 			UnityExtension.SetActive(true, editCanvasUIRoot);
 			UnityExtension.SetActiveBatch(false, editTraitUIRoot, editMatchRuleUIRoot, editOperationRuleUIRoot);
 			mode.StartEditCanvas();
+		}
 			break;
 		case 1:
+		{
 			UnityExtension.SetActive(true, editTraitUIRoot);
 			UnityExtension.SetActiveBatch(false, editCanvasUIRoot, editMatchRuleUIRoot, editOperationRuleUIRoot);
 			mode.StartEditTraits();
+		}
 			break;
 		case 2:
+		{
 			UnityExtension.SetActive(true, editMatchRuleUIRoot);
 			UnityExtension.SetActiveBatch(false, editTraitUIRoot, editCanvasUIRoot, editOperationRuleUIRoot);
 			mode.StartEditMatchRules();
+			SyncMatchRuleUI();
+		}
 			break;
 		case 3:
+		{
 			UnityExtension.SetActive(true, editOperationRuleUIRoot);
 			UnityExtension.SetActiveBatch(false, editTraitUIRoot, editMatchRuleUIRoot, editCanvasUIRoot);
 			mode.StartEditOperationRules();
+			SyncOperationRuleUI();
+		}
 			break;
 		default:
 			throw new System.NotSupportedException();
@@ -162,5 +208,19 @@ public class EditModeUI : MonoBehaviour
 		{
 			Game.globalEdit.editingScheme.Name = txt;
 		}
+	}
+
+	private void SyncMatchRuleUI()
+	{
+		btnPrevMatch.gameObject.SetActive(mode.HasPrevMatchRule);
+		btnNextMatch.gameObject.SetActive(mode.HasNextMatchRule);
+		btnNewMatch.gameObject.SetActive(mode.HasNewMatchRule);
+	}
+
+	private void SyncOperationRuleUI()
+	{
+		btnPrevOperation.gameObject.SetActive(mode.HasPrevOperationRule);
+		btnNextOperation.gameObject.SetActive(mode.HasNextOperationRule);
+		btnNewOperation.gameObject.SetActive(mode.HasNewOperationRule);
 	}
 }
