@@ -41,16 +41,6 @@ public static class AStar
 
 		while (opened.Length > 0)
 		{
-			if (ctx.isDebug)
-			{
-				var str = "";
-				opened.Foreach((n)=>{
-					var s = n.substance as SlotWrapper2D;
-					str += " [" + s.pos.x + "," + s.pos.y + "," + (n.dstStart + n.dstEndEstimated) + "] |";
-				});
-				Debug.LogWarning(str);
-			}
-
 			matches.Clear();
 			var cur = opened.ExtractMin();
 			if (ctx.procTermination.Invoke(cur.substance))

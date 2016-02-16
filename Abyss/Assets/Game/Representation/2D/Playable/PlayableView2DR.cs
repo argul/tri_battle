@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class PlayableView2DR : MonoBehaviour 
 {
+	public bool drawCoordinate = false;
 	public float moveUnitLengthTime = 1f;
 	public float eliminationTime = 1f;
 	public float shuffleTime = 4f;
@@ -27,7 +28,10 @@ public class PlayableView2DR : MonoBehaviour
 		container.ForeachSlot((x, y, s)=>{
 			InsertCell(s.slotAttribute, new Pos2D(x, y));
 		});
-		DrawCoordinates(container);
+		if (drawCoordinate)
+		{
+			DrawCoordinates(container);
+		}
 	}
 
 	void DrawCoordinates(Container2D_Rectangular container)
