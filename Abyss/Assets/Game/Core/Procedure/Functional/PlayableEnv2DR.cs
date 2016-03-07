@@ -196,6 +196,7 @@ public class PlayableEnv2DR
 						shuffle.shuffle[y, x] = slot.slotAttribute;
 					});
 					ret.episodes.Add(shuffle);
+					plmRecords = SeekContainerPLM(foreground);
 					break;
 				}
 			}

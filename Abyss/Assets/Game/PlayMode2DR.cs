@@ -172,7 +172,7 @@ public class PlayMode2DR : MonoBehaviour
 		}
 		else if (gizmoContent == GizmoContent.LogicSlots)
 		{
-			Gizmos.color = Color.red;
+			Gizmos.color = Color.white;
 			env.Foreground.ForeachSlot((x, y, slot)=>{
 				Gizmos.DrawCube(layout.Logic2View(new Pos2D(x, y)), new Vector3(0.5f, 0.5f, 0.5f));
 			});

@@ -19,9 +19,7 @@ public class ViewCell : MonoBehaviour
 		{
 			render.gameObject.SetActive(true);
 			block.gameObject.SetActive(false);
-			var sc = sa.trait as SlotTraitColor;
-			origColor = new Color(sc.r / 255f, sc.g / 255f, sc.b / 255f, sc.a / 255f);
-			render.color = origColor;
+			Sync(sa);
 		}
 		else if (sa.category == SlotAttribute.Category.INSULATOR)
 		{
@@ -34,6 +32,13 @@ public class ViewCell : MonoBehaviour
 		}
 		origSize = size;
 		transform.localScale = new Vector3(origSize.x, origSize.y, 1f);
+	}
+
+	public void Sync(SlotAttribute sa)
+	{
+		var sc = sa.trait as SlotTraitColor;
+		origColor = new Color(sc.r / 255f, sc.g / 255f, sc.b / 255f, sc.a / 255f);
+		render.color = origColor;
 	}
 
 	public void SetColor(Color c)

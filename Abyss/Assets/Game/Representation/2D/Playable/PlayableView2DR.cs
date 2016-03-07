@@ -203,11 +203,11 @@ public class PlayableView2DR : MonoBehaviour
 		yield return PlayDuration(start, middle, (now)=>{
 			var gray = Math.Max(0, (middle - now) / (middle - start));
 			var color = new Color(gray, gray, gray);
-			for (int y = 0; y < ep.refillSlots.GetLength(0); y++)
+			for (int y = 0; y < ep.shuffle.GetLength(0); y++)
 			{
-				for (int x = 0; x < ep.refillSlots.GetLength(1); x++)
+				for (int x = 0; x < ep.shuffle.GetLength(1); x++)
 				{
-					if (ep.refillSlots[y, x].category == SlotAttribute.Category.TARGET)
+					if (ep.shuffle[y, x].category == SlotAttribute.Category.TARGET)
 					{
 						cells[y, x].SetColor(color);
 					}
@@ -215,13 +215,13 @@ public class PlayableView2DR : MonoBehaviour
 			}
 		});
 
-		for (int y = 0; y < ep.refillSlots.GetLength(0); y++)
+		for (int y = 0; y < ep.shuffle.GetLength(0); y++)
 		{
-			for (int x = 0; x < ep.refillSlots.GetLength(1); x++)
+			for (int x = 0; x < ep.shuffle.GetLength(1); x++)
 			{
-				if (ep.refillSlots[y, x].category == SlotAttribute.Category.TARGET)
+				if (ep.shuffle[y, x].category == SlotAttribute.Category.TARGET)
 				{
-					InsertCell(ep.refillSlots[y, x], new Pos2D(x, y));
+					cells[y, x].Sync(ep.shuffle[y, x]);
 				}
 			}
 		}
@@ -229,11 +229,11 @@ public class PlayableView2DR : MonoBehaviour
 		yield return PlayDuration(middle, end, (now)=>{
 			var gray = Math.Min(1, (now - middle) / (end - middle));
 			var color = new Color(gray, gray, gray);
-			for (int y = 0; y < ep.refillSlots.GetLength(0); y++)
+			for (int y = 0; y < ep.shuffle.GetLength(0); y++)
 			{
-				for (int x = 0; x < ep.refillSlots.GetLength(1); x++)
+				for (int x = 0; x < ep.shuffle.GetLength(1); x++)
 				{
-					if (ep.refillSlots[y, x].category == SlotAttribute.Category.TARGET)
+					if (ep.shuffle[y, x].category == SlotAttribute.Category.TARGET)
 					{
 						cells[y, x].SetColor(color);
 					}
